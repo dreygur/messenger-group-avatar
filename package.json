@@ -1,0 +1,33 @@
+{
+  "name": "@dreygur/messenger-group-avatar",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/esm/index.d.ts",
+  "author": "Rakibul Yeasin<ryeasin03@gmail.com>",
+  "repository": {
+    "url": "https://github.com/dreygur/messenger-group-avatar.git"
+  },
+  "scripts": {
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "test": "jest"
+  },
+  "files": [
+    "/lib"
+  ],
+  "dependencies": {
+    "jest": "^29.5.0",
+    "request": "^2.88.2",
+    "sharp": "^0.31.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/sharp": "^0.31.1",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
+}
