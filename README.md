@@ -14,7 +14,7 @@ makeCombined(...images)
 ## CommonJS/Node.js
 
 ```js
-const { default: makeCombined } = require('./lib/cjs');
+const { default: makeCombined } = require('@dreygur/messenger-group-avatar');
 
 makeCombined(...images)
   .then((combinedImage) => /* do whatever you want to do with the combined image */ );
