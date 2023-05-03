@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "lib/esm",
-    "module": "esnext",
-    "target": "es5",
+    "module": "NodeNext",
+    "target": "ES5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "jsx": "react-jsx",
     "declaration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
@@ -18,17 +17,18 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "strict": true
   },
+  "types": [
+    "node"
+  ],
   "include": [
-    "src"
-, "tests/index.test.ts"  ],
+    "src",
+  ],
   "exclude": [
     "node_modules",
-    "lib",
-    "tests"
+    "lib"
   ]
 }
