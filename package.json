@@ -1,7 +1,7 @@
 {
   "name": "@dreygur/messenger-group-avatar",
   "description": "Avatar generator that looks like messenger group chat default avatar",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "license": "MIT",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

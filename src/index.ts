@@ -34,7 +34,7 @@ export default async function makeCombined(...images: string[]): Promise<string>
 
     const tempPath = path.join(process.cwd(), 'temp');
     const processed = [];
-    for (let i = 0; i < images.length; i++) {
+    for (let i = 0; i < 3; i++) {
       processed.push(path.join(tempPath, `${process.hrtime.bigint().toString()}-${i}.jpeg`));
     }
 
@@ -63,7 +63,11 @@ export default async function makeCombined(...images: string[]): Promise<string>
       .toFile(combined);
 
     // Delete temporary files
-    processed.forEach(image => fs.rmSync(image));
+    try {
+      processed.forEach(image => fs.rmSync(image));
+    } catch (_) {
+      console.log('Files already deleted')
+    }
 
     return combined;
   } catch (e) {
