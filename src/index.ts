@@ -30,37 +30,57 @@ async function resizeImage({ width = 450, height = 450, out = '', inImage = '' }
 
 export default async function makeCombined(...images: string[]): Promise<string> {
   try {
-    if (images.length < 3) throw new Error('Must provide at least 3 images');
+    if (images.length < 2) throw new Error('Must provide at least 2 images');
+    if (images.length > 3) images = images.splice(2);
 
     const tempPath = path.join(process.cwd(), 'temp');
     const processed = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < images.length; i++) {
       processed.push(path.join(tempPath, `${process.hrtime.bigint().toString()}-${i}.jpeg`));
     }
 
     if (!fs.existsSync(tempPath)) fs.mkdirSync(tempPath);
 
     // Resie the images
-    await resizeImage({ inImage: images[0], out: processed[0] });
-    await resizeImage({ inImage: images[1], width: 225, height: 225, out: processed[1] });
-    await resizeImage({ inImage: images[2], width: 225, height: 225, out: processed[2] });
+    let combined = path.join(tempPath, `${process.hrtime.bigint().toString()}-combined.jpeg`);
+    if (images.length < 3) {
+      for (let i in images) {
+        await resizeImage({ inImage: images[parseInt(i)], out: processed[parseInt(i)] });
+      }
+      await sharp(processed[0])
+        .composite([
+          {
+            input: processed[1],
+            top: 0,
+            left: 225,
+          }
+        ])
+        .toFile(combined);
+    } else {
+      for (let i in images) {
+        let j: number = parseInt(i);
+        if (j === 0) {
+          await resizeImage({ inImage: images[i], out: processed[i] });
+          continue;
+        }
+        await resizeImage({ inImage: images[j], width: 225, height: 225, out: processed[j] });
+      }
 
-    const combined = path.join(tempPath, `${process.hrtime.bigint().toString()}-combined.jpeg`);
-    await sharp(processed[0])
-      .composite([
-        {
-          input: processed[1],
-          top: 0,
-          left: 225,
-
-        },
-        {
-          input: processed[2],
-          top: 225,
-          left: 225,
-        },
-      ])
-      .toFile(combined);
+      await sharp(processed[0])
+        .composite([
+          {
+            input: processed[1],
+            top: 0,
+            left: 225,
+          },
+          {
+            input: processed[2],
+            top: 225,
+            left: 225,
+          },
+        ])
+        .toFile(combined);
+    }
 
     // Delete temporary files
     try {
