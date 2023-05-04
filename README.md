@@ -2,6 +2,8 @@
 
 It exposes a function `makeCombined` that recieves and image array as argument and returns a promise that will be resolved when the image is processed with a image location.
 
+You need to delete the image after you have finished processing.
+
 ## TS/ES
 
 ```typescript

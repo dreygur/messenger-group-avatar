@@ -61,6 +61,10 @@ export default async function makeCombined(...images: string[]): Promise<string>
         },
       ])
       .toFile(combined);
+
+    // Delete temporary files
+    processed.forEach(image => fs.rmSync(image));
+
     return combined;
   } catch (e) {
     throw e;
